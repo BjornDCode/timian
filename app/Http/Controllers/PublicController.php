@@ -15,4 +15,8 @@ class PublicController extends Controller
         return view('public.home');
     }
 
+    public function plans() {
+        return view('public.plans');
+    }
+
 }
