@@ -11,7 +11,16 @@ class PublicPagesTest extends TestCase
 
     /** @test */
     public function a_guest_can_view_the_front_page() {
-        $this->assertTrue(true);
+
+        // // Given we have a user that is not signed in
+        // $user = create('App\Models\User');
+        //
+        // // When they hit the front page
+        // $response = $this->get('/');
+        //
+        // // They will see the page
+        // $response->assertSee('Timian');
+
     }
 
     /** @test */
