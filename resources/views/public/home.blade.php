@@ -1,11 +1,14 @@
 @extends('layouts.static')
 
 @section('content')
-    <main class="container">
-        <h1>Timian</h1>
+    <main class="front-page">
+        <div class="info">
+            <h1 class="title">Timian</h1>
+            <p class="tagline">A business analytics tool</p>
+        </div>
         <div class="button-group">
-            <a href="#">Sign Up</a>
-            <a href="#">Sign In</a>
+            <a href="/plans" class="btn btn-primary">Get Started</a>
+            <a href="/login" class="btn btn-default">Sign In</a>
         </div>
     </main>
 @endsection
