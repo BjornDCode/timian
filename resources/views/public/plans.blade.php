@@ -16,7 +16,7 @@
                             <p>{{ $plan->description }}</p>
                         </div>
                         <div class="panel-footer">
-                            <a href="#" class="btn btn-primary">Select Plan</a>
+                            <a href="/timian/public/register" class="btn btn-primary">Select Plan</a>
                         </div>
                     </div>
                 @endforeach
