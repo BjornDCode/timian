@@ -22,4 +22,10 @@ class PublicController extends Controller
         return view('public.plans', compact('plans'));
     }
 
+    public function selectPlan() {
+        session(['plan' => request('plan')]);
+
+        return redirect('/register');
+    }
+
 }

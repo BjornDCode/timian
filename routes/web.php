@@ -16,3 +16,4 @@ Route::get('/', 'PublicController@home')->name('home');
 Auth::routes();
 
 Route::get('/plans', 'PublicController@plans')->name('plans');
+Route::get('/selectplan', 'PublicController@selectPlan')->name('selectPlan');
