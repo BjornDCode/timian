@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.static')
 
 @section('content')
 <div class="container">
@@ -38,6 +38,20 @@
                             </div>
                         </div>
 
+                        <div class="form-group{{ $errors->has('company') ? ' has-error' : '' }}">
+                            <label for="company" class="col-md-4 control-label">Company</label>
+
+                            <div class="col-md-6">
+                                <input id="company" type="text" class="form-control" name="company" value="{{ old('company') }}" required>
+
+                                @if ($errors->has('company'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('company') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                             <label for="password" class="col-md-4 control-label">Password</label>
 
@@ -65,6 +79,7 @@
                                 <button type="submit" class="btn btn-primary">
                                     Register
                                 </button>
+                                <a href="#">Already have an accout? Login</a>
                             </div>
                         </div>
                     </form>
