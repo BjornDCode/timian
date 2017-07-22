@@ -35,6 +35,11 @@ class PublicPagesTest extends TestCase
 
     /** @test */
     public function an_authenticated_user_cannot_see_the_plans_page() {
+
+    }
+
+    /** @test */
+    public function the_plans_page_shows_the_plans() {
         
     }
 

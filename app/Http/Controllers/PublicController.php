@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Plan;
 
 class PublicController extends Controller
 {
@@ -16,7 +17,9 @@ class PublicController extends Controller
     }
 
     public function plans() {
-        return view('public.plans');
+        $plans = Plan::all();
+
+        return view('public.plans', compact('plans'));
     }
 
 }

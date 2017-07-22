@@ -8374,3 +8374,16 @@ button.close {
   text-align: center;
 }
 
+.plans-page .plans {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.plans-page .plans .plan {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  margin: 5px;
+}
+
