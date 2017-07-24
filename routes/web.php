@@ -17,3 +17,5 @@ Auth::routes();
 
 Route::get('/plans', 'PublicController@plans')->name('plans');
 Route::get('/selectplan', 'PublicController@selectPlan')->name('selectPlan');
+
+Route::get('subscribe', 'SubscriptionsController@index');

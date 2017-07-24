@@ -25,7 +25,7 @@ class PublicController extends Controller
     public function selectPlan() {
         session(['plan' => request('plan')]);
 
-        return redirect('/register');
+        return redirect()->route('register');
     }
 
 }

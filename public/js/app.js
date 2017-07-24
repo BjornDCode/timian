@@ -773,7 +773,7 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(9);
-module.exports = __webpack_require__(40);
+module.exports = __webpack_require__(41);
 
 
 /***/ }),
@@ -797,7 +797,7 @@ window.Vue = __webpack_require__(35);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example', __webpack_require__(36));
+Vue.component('Checkout', __webpack_require__(36));
 
 var app = new Vue({
   el: '#app'
@@ -810,41 +810,22 @@ var app = new Vue({
 
 window._ = __webpack_require__(11);
 
-/**
- * We'll load jQuery and the Bootstrap jQuery plugin which provides support
- * for JavaScript based Bootstrap features such as modals and tabs. This
- * code may be modified to fit the specific needs of your application.
- */
-
 try {
-  window.$ = window.jQuery = __webpack_require__(13);
+    window.$ = window.jQuery = __webpack_require__(13);
 
-  __webpack_require__(14);
+    __webpack_require__(14);
 } catch (e) {}
-
-/**
- * We'll load the axios HTTP library which allows us to easily issue requests
- * to our Laravel back-end. This library automatically handles sending the
- * CSRF token as a header based on the value of the "XSRF" token cookie.
- */
 
 window.axios = __webpack_require__(15);
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
-/**
- * Next we will register the CSRF Token as a common header with Axios so that
- * all outgoing HTTP requests automatically have it attached. This is just
- * a simple convenience so we don't have to attach every token manually.
- */
+window.Timian = {
+    token: document.head.querySelector('meta[name="csrf-token"]').content,
+    stripeKey: document.head.querySelector('meta[name="stripe-key"]').content
+};
 
-var token = document.head.querySelector('meta[name="csrf-token"]');
-
-if (token) {
-  window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
-} else {
-  console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
-}
+window.axios.defaults.headers.common['X-CSRF-TOKEN'] = Timian.token;
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
@@ -41792,7 +41773,7 @@ var Component = __webpack_require__(37)(
   /* script */
   __webpack_require__(38),
   /* template */
-  __webpack_require__(39),
+  __webpack_require__(40),
   /* styles */
   null,
   /* scopeId */
@@ -41800,9 +41781,9 @@ var Component = __webpack_require__(37)(
   /* moduleIdentifier (server only) */
   null
 )
-Component.options.__file = "c:\\xampp\\htdocs\\timian\\resources\\assets\\js\\components\\Example.vue"
+Component.options.__file = "c:\\xampp\\htdocs\\timian\\resources\\assets\\js\\components\\Checkout.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] Example.vue: functional components are not supported with templates, they should use render functions.")}
+if (Component.options.functional) {console.error("[vue-loader] Checkout.vue: functional components are not supported with templates, they should use render functions.")}
 
 /* hot reload */
 if (false) {(function () {
@@ -41811,9 +41792,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-34b4fa70", Component.options)
+    hotAPI.createRecord("data-v-2e29e1d8", Component.options)
   } else {
-    hotAPI.reload("data-v-34b4fa70", Component.options)
+    hotAPI.reload("data-v-2e29e1d8", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -41942,44 +41923,153 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['selectedPlan', 'plans'],
+
+    data: function data() {
+        return {
+            plan: 1,
+            error: false,
+            stripe: {},
+            card: {}
+        };
+    },
+    created: function created() {
+        if (this.selectedPlan) {
+            this.plan = this.selectedPlan.id;
+        }
+    },
     mounted: function mounted() {
-        console.log('Component mounted.');
+
+        this.stripe = Stripe(Timian.stripeKey);
+        var elements = this.stripe.elements();
+
+        this.card = elements.create('card');
+        this.card.mount('#card-element');
+
+        this.card.addEventListener('change', this.showError);
+    },
+
+
+    methods: {
+        pay: function pay(e) {
+            e.preventDefault();
+
+            this.stripe.createToken(this.card).then(function (result) {
+                console.log(result);
+            });
+
+            console.log('paying');
+        },
+        showError: function showError(_ref) {
+            var error = _ref.error;
+
+            if (error) {
+                this.error = error.message;
+            }
+        },
+        findPlanById: function findPlanById(id) {
+            return this.plans.find(function (plan) {
+                return plan.id == id;
+            });
+        }
     }
 });
 
 /***/ }),
-/* 39 */
+/* 39 */,
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _vm._m(0)
+  return _c('form', {
+    staticClass: "checkout",
+    attrs: {
+      "action": "/subscribe",
+      "method": "post"
+    },
+    on: {
+      "submit": _vm.pay
+    }
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "plan"
+    }
+  }, [_vm._v("Plan:")]), _vm._v(" "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.plan),
+      expression: "plan"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "name": "plan",
+      "id": "plan"
+    },
+    on: {
+      "change": function($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
+          return o.selected
+        }).map(function(o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val
+        });
+        _vm.plan = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+      }
+    }
+  }, _vm._l((_vm.plans), function(plan) {
+    return _c('option', {
+      domProps: {
+        "value": plan.id
+      }
+    }, [_vm._v(_vm._s(plan.name) + " - $" + _vm._s(plan.price / 100))])
+  }))]), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "card-element"
+    }
+  }, [_vm._v("Payment Details:")]), _vm._v(" "), _c('div', {
+    attrs: {
+      "id": "card-element"
+    }
+  }), _vm._v(" "), _c('div', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.error),
+      expression: "error"
+    }],
+    staticClass: "error"
+  }, [_vm._v(_vm._s(_vm.error))])]), _vm._v(" "), _vm._m(0)])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "container"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-md-8 col-md-offset-2"
-  }, [_c('div', {
-    staticClass: "panel panel-default"
-  }, [_c('div', {
-    staticClass: "panel-heading"
-  }, [_vm._v("Example Component")]), _vm._v(" "), _c('div', {
-    staticClass: "panel-body"
-  }, [_vm._v("\n                    I'm an example component!\n                ")])])])])])
+    staticClass: "form-group"
+  }, [_c('button', {
+    staticClass: "btn btn-primary",
+    attrs: {
+      "type": "submit"
+    }
+  }, [_vm._v("Subscribe")])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-34b4fa70", module.exports)
+     require("vue-hot-reload-api").rerender("data-v-2e29e1d8", module.exports)
   }
 }
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
