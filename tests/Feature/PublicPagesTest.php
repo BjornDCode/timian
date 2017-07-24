@@ -11,20 +11,23 @@ class PublicPagesTest extends TestCase
 
     /** @test */
     public function a_guest_can_view_the_front_page() {
+        $user = create('App\Models\User');
 
-        // // Given we have a user that is not signed in
-        // $user = create('App\Models\User');
-        //
-        // // When they hit the front page
-        // $response = $this->get('/');
-        //
-        // // They will see the page
-        // $response->assertSee('Timian');
+        $response = $this->get('/');
 
+        $response->assertSee('Timian');
     }
 
     /** @test */
     public function an_authenticated_user_cannot_see_the_front_page() {
+
+        // Given we have a user
+        // And that user is signed in
+        $this->signIn();
+        // When they try to acces the front page
+        $response = $this->get('/');
+        // They should be redirected to the dashboard page
+        $response->assertRedirect('/dashboard');
 
     }
 
@@ -40,7 +43,7 @@ class PublicPagesTest extends TestCase
 
     /** @test */
     public function the_plans_page_shows_the_plans() {
-        
+
     }
 
 }
