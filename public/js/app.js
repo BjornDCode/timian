@@ -773,7 +773,7 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(9);
-module.exports = __webpack_require__(41);
+module.exports = __webpack_require__(40);
 
 
 /***/ }),
@@ -41773,7 +41773,7 @@ var Component = __webpack_require__(37)(
   /* script */
   __webpack_require__(38),
   /* template */
-  __webpack_require__(40),
+  __webpack_require__(39),
   /* styles */
   null,
   /* scopeId */
@@ -41781,7 +41781,7 @@ var Component = __webpack_require__(37)(
   /* moduleIdentifier (server only) */
   null
 )
-Component.options.__file = "c:\\xampp\\htdocs\\timian\\resources\\assets\\js\\components\\Checkout.vue"
+Component.options.__file = "/Users/asbjornhansen/Documents/Code/timian/resources/assets/js/components/Checkout.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Checkout.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -41982,8 +41982,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 39 */,
-/* 40 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -42069,7 +42068,7 @@ if (false) {
 }
 
 /***/ }),
-/* 41 */
+/* 40 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
